@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Number Verification</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-family: sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+}
+
+.container {
+    width: 400px;
+    height: min-content;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 28px;
+}
+
+.container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#mobileInput,
+#otpVerification {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+input[type="tel"],
+input[type="text"] {
+    width: 70%;
+    font-size: 18px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-radius: 14px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 50%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 14px;
+    cursor: pointer;
+    background-color: #e6f5fb;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ababab;
+}
+
+#notification {
+    text-align: center;
+    font-size: 18px;
+    color: #6b6b6b;
+    display: none;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mobile Number Verification</h1>
+        <div id="mobileInput">
+            <input type="tel" id="mobileNumber" placeholder="Enter your mobile number">
+            <button id="otpRequestBtn">Request OTP</button>
+        </div>
+        <div id="otpVerification" style="display: none;">
+            <input type="text" id="otpInput" placeholder="Enter OTP">
+            <button id="otpVerifyBtn">Verify OTP</button>
+        </div>
+        <div id="notification"></div>
+    </div>
+   
+    <script>
+        // Function to simulate sending OTP (display OTP on screen)
+function sendOTP(mobileNumber, otp) {
+    console.log(`OTP sent to ${mobileNumber}: ${otp}`);
+    // Simulate sending OTP via SMS or any other method
+    // For demonstration, we'll just display the OTP on the webpage
+    document.getElementById("notification").innerText = `OTP sent to ${mobileNumber}`;
+    document.getElementById("notification").style.display = "block";
+}
+
+// Function to verify OTP
+function verifyOTP(enteredOTP, generatedOTP) {
+    return enteredOTP === generatedOTP;
+}
+
+// Function to simulate sending weather notification to the mobile number
+function sendWeatherNotification(mobileNumber) {
+    console.log(`Weather notification sent to ${mobileNumber}`);
+    // Simulate sending weather notification via SMS or any other method
+    // For demonstration, we'll just display a message on the webpage
+    document.getElementById("notification").innerText = `Weather notification sent to ${mobileNumber}`;
+    document.getElementById("notification").style.display = "block";
+}
+
+// Event listener for OTP request button
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("otpRequestBtn").addEventListener("click", function() {
+        // Simulate sending OTP with the fixed OTP "1234"
+        const mobileNumber = document.getElementById("mobileNumber").value;
+        const otp = "1234"; // Fixed OTP for demonstration
+        sendOTP(mobileNumber, otp);
+
+        // Hide mobile input and show OTP verification input
+        document.getElementById("mobileInput").style.display = "none";
+        document.getElementById("otpVerification").style.display = "block";
+    });
+
+    // Event listener for OTP verification button
+    document.getElementById("otpVerifyBtn").addEventListener("click", function() {
+        // Retrieve entered OTP
+        const enteredOTP = document.getElementById("otpInput").value;
+        // Retrieve fixed OTP "1234"
+        const otp = "1234";
+
+        // Verify OTP
+        if (verifyOTP(enteredOTP, otp)) {
+            // OTP is verified
+            document.getElementById("notification").innerText = "OTP has been verified successfully.";
+            document.getElementById("notification").style.display = "block";
+            // Simulate sending weather notification to the mobile number
+            const mobileNumber = document.getElementById("mobileNumber").value;
+            setTimeout(function() {
+                sendWeatherNotification(mobileNumber);
+            }, 2000); // Delay sending weather notification for 2 seconds
+        } else {
+            // OTP verification failed
+            document.getElementById("notification").innerText = "Incorrect OTP. Please try again.";
+            document.getElementById("notification").style.display = "block";
+        }
+    });
+});
+
+
+    </script>
+</body>
+</html>
